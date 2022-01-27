@@ -3,3 +3,21 @@ export function randomColor() {
     var o = Math.round, r = Math.random, s = 255;
     return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
 }
+
+export class Queue {
+    constructor() {
+        this._arr = [];
+    }
+
+    enqueue(item) {
+        this._arr.push(item);
+    }
+
+    front() {
+        return this._arr[0];
+    }
+
+    dequeue() {
+        return this._arr.shift();
+    }
+}

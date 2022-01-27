@@ -1,3 +1,4 @@
+import { Planet } from './planet.js';
 import {PlanetController} from './planetController.js';
 import {randomColor} from './utils.js';
 
@@ -17,16 +18,41 @@ class App{
         this.offsetPos = {x: 0, y: 0};
 
         this.planetController = new PlanetController();
-        this.planetController.addPlanet({x: this.stageWidth/2, y: this.stageHeight/2}, {vx: 0, vy: 0}, 15, "#F00", true);
-        this.planetController.addPlanet({x: this.stageWidth/2+100, y: this.stageHeight/2+50}, {vx: 0, vy: -1}, 9, "#00F", false);
-        
-        this.planetController.addPlanet({x: this.stageWidth/2+200, y: this.stageHeight/2+100}, {vx: -1, vy: +1.1}, 9, "#0FF", false);
+        this.planetController.push(
+            (new Planet()).
+            setMass(200).
+            setPos({x: this.stageWidth/2, y: this.stageHeight/2}).
+            setVelocity({vx: 0, vy: 0}).
+            setRadius(15).
+            setColor("#F00").
+            setIsstatic(true)
+        );
+        this.planetController.push(
+            (new Planet()).
+            setMass(100).
+            setPos({x: this.stageWidth/2+100, y:this.stageHeight/2+50}).
+            setVelocity({vx: 0, vy: -2}).
+            setRadius(9).
+            setColor("#00F").
+            setIsstatic(false)
+        );
+        this.planetController.push(
+            (new Planet()).
+            setMass(100).
+            setPos({x: this.stageWidth/2-100, y:this.stageHeight/2+100}).
+            setVelocity({vx: 1, vy: 1.1}).
+            setRadius(9).
+            setColor("#0FF").
+            setIsstatic(false)
+        );
 
         window.requestAnimationFrame(this.animation.bind(this)); // 왜 bind를 해야하는지 이해가 안.. 아니 음 될거같음
 
     }
 
     resize() {
+        this.planetController?.resize(this.stageWidth, this.stageHeight, document.body.clientWidth, document.body.clientHeight);
+
         this.stageWidth = document.body.clientWidth;
         this.stageHeight = document.body.clientHeight;
 

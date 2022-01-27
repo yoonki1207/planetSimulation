@@ -15,6 +15,16 @@ export class PlanetController {
         planet = null; // is this code necessary??
     }
 
+    push(planet) {
+        this.planets.push(planet);
+    }
+
+    resize(beforeWidth, beforeHeight, stageWidth, stageHeight) {
+        for(let i = 0; this.planets[i] != undefined; i++) {
+            this.planets[i].resize(beforeWidth, beforeHeight, stageWidth, stageHeight);
+        }
+    }
+
     animation(ctx) {
         for(let i = 0; this.planets[i] != undefined; i++) {
             this.planets[i].update();
@@ -33,6 +43,7 @@ export class PlanetController {
                 };
                 const d = distance({x: 0, y: 0}, vector);
                 if(d < this.planets[i].radius + this.planets[j].radius) continue; // 서로 너무 붙으면 중력 작용 x
+                // if( d < 0.1 )continue;
                 const constant = G_CONSTANT * this.planets[j].mass / Math.pow(d, 3);
                 vector.x *= constant;
                 vector.y *= constant;

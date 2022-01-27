@@ -1,3 +1,6 @@
+import { Tail } from "./tail.js";
+import { Queue } from "./utils.js";
+
 const DELTA_T = 1/60;
 
 export class Planet {
@@ -14,6 +17,14 @@ export class Planet {
             ax: 0,
             ay: 0
         };
+
+        this.tailCount = 0;
+        this.queue = new Queue();
+    }
+
+    resize(beforeWidth, beforeHeight, stageWidth, stageHeight) {
+        this.state.x = this.state.x * stageWidth / beforeWidth;
+        this.state.y = this.state.y * stageHeight / beforeHeight;
     }
 
     animation(ctx) {
@@ -26,6 +37,10 @@ export class Planet {
             Math.PI*2,
             false);
         ctx.fill();
+        
+        for(let i = 0; i < this.queue._arr?.length; i++) {
+            this.queue._arr[i].animation(ctx);
+        }
     }
 
     update() {
@@ -36,8 +51,30 @@ export class Planet {
             this.state.vy = 0;
             return;
         }
+
+        if(this.tailCount >= 15) {
+            let tail = new Tail(this.state.x, this.state.y, this.color);
+            this.queue.enqueue(tail);
+            this.tailCount = 0;
+        }
+
         this.state.x += this.state.vx;
         this.state.y += this.state.vy;
+
+        
+        this.tailCount++;
+        if(this.queue.front()?.isDead){
+            this.queue.dequeue();
+        }
+
+        for(let i = 0; i < this.queue._arr?.length; i++) {
+            this.queue._arr[i].update();
+        }
+    }
+
+    setMass(mass) {
+        this.mass = mass;
+        return this;
     }
 
     setPos(pos) {
