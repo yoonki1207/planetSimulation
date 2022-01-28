@@ -6,11 +6,12 @@ const G_CONSTANT = 100;
 export class PlanetController {
     constructor() {
         this.planets = [];
+        this.tailStyle = 1;
     }
 
     addPlanet(pos, velocity, radius, color, isStatic) {
         let planet = new Planet();
-        planet.setPos(pos).setVelocity(velocity).setColor(color).setRadius(radius).setIsstatic(isStatic);
+        planet.setPos(pos).setVelocity(velocity).setColor(color).setRadius(radius).setIsstatic(isStatic).setTailStyle(this.tailStyle);
         this.planets.push(planet);
         planet = null; // is this code necessary??
     }
@@ -33,6 +34,7 @@ export class PlanetController {
     }
 
     update() {
+        console.log(this.planets.length);
         for(let i = 0; this.planets[i] != undefined; i++) {
             let vecSum = {x: 0, y: 0};
             for(let j = 0; this.planets[j] != undefined; j++) {
@@ -52,6 +54,17 @@ export class PlanetController {
             }
             this.planets[i].state.ax = vecSum.x;
             this.planets[i].state.ay = vecSum.y;
+
+            // delete check
+            if(distance({x: 0, y:0}, this.planets[i].state) > 50000) {
+                delete this.planets[i];
+                this.planets.splice(i, 1);
+            }
         }
+    }
+
+    nextTailStyle() {
+        this.tailStyle++;
+        this.planets.map((element)=>element.setTailStyle(this.tailStyle));
     }
 }

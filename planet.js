@@ -1,5 +1,4 @@
-import { Tail } from "./tail.js";
-import { Queue } from "./utils.js";
+import { TailController } from "./tailController.js";
 
 const DELTA_T = 1/60;
 
@@ -17,9 +16,8 @@ export class Planet {
             ax: 0,
             ay: 0
         };
-
-        this.tailCount = 0;
-        this.queue = new Queue();
+        this.tailController = new TailController();
+        this.tailStyle = 1;
     }
 
     resize(beforeWidth, beforeHeight, stageWidth, stageHeight) {
@@ -38,9 +36,7 @@ export class Planet {
             false);
         ctx.fill();
         
-        for(let i = 0; i < this.queue._arr?.length; i++) {
-            this.queue._arr[i].animation(ctx);
-        }
+        this.tailController.animation(ctx);
     }
 
     update() {
@@ -52,24 +48,14 @@ export class Planet {
             return;
         }
 
-        if(this.tailCount >= 15) {
-            let tail = new Tail(this.state.x, this.state.y, this.color);
-            this.queue.enqueue(tail);
-            this.tailCount = 0;
-        }
-
         this.state.x += this.state.vx;
         this.state.y += this.state.vy;
+        this.tailController.update(this.state.x, this.state.y, this.color);
+    }
 
-        
-        this.tailCount++;
-        if(this.queue.front()?.isDead){
-            this.queue.dequeue();
-        }
-
-        for(let i = 0; i < this.queue._arr?.length; i++) {
-            this.queue._arr[i].update();
-        }
+    setTailStyle(tailStyle) {
+        this.tailController.tailType = tailStyle;
+        return this;
     }
 
     setMass(mass) {

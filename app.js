@@ -13,6 +13,7 @@ class App{
         window.addEventListener('resize', this.resize.bind(this), false);
         window.addEventListener('mousedown', this.onMouseDown.bind(this), false);
         window.addEventListener('mouseup', this.onMouseDown.bind(this), false);
+        window.addEventListener('keydown', this.keyDown.bind(this), false);
         this.resize();
 
         this.offsetPos = {x: 0, y: 0};
@@ -20,7 +21,7 @@ class App{
         this.planetController = new PlanetController();
         this.planetController.push(
             (new Planet()).
-            setMass(200).
+            setMass(10000).
             setPos({x: this.stageWidth/2, y: this.stageHeight/2}).
             setVelocity({vx: 0, vy: 0}).
             setRadius(15).
@@ -88,6 +89,14 @@ class App{
         this.offsetPos.x -= x;
         this.offsetPos.y -= y;
         this.planetController.addPlanet({x: downX, y: downY}, {vx: this.offsetPos.x*c, vy: this.offsetPos.y*c}, 9, randomColor(), false);
+        console.log(downX, downY, this.offsetPos.x*c, this.offsetPos.y*c);
+    }
+
+    
+    keyDown(e) {
+        if(e.key == 'l' || e.key == 'L') {
+            this.planetController.nextTailStyle();
+        }
     }
 }
 
