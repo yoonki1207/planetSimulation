@@ -25,25 +25,25 @@ class App{
             setPos({x: this.stageWidth/2, y: this.stageHeight/2}).
             setVelocity({vx: 0, vy: 0}).
             setRadius(15).
-            setColor("#F00").
+            setColor("#E72").
             setIsstatic(true)
         );
         this.planetController.push(
             (new Planet()).
             setMass(100).
             setPos({x: this.stageWidth/2+100, y:this.stageHeight/2+50}).
-            setVelocity({vx: 0, vy: -2}).
+            setVelocity({vx: 0, vy: -10}).
             setRadius(9).
-            setColor("#00F").
+            setColor("#23E").
             setIsstatic(false)
         );
         this.planetController.push(
             (new Planet()).
             setMass(100).
             setPos({x: this.stageWidth/2-100, y:this.stageHeight/2+100}).
-            setVelocity({vx: 1, vy: 1.1}).
+            setVelocity({vx: 5, vy: 10.1}).
             setRadius(9).
-            setColor("#0FF").
+            setColor("#3ee").
             setIsstatic(false)
         );
 

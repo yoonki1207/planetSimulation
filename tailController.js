@@ -8,7 +8,7 @@ export class TailController {
         this.queue = new Queue();
         this.frequency = 1;
         this.tick = 1;
-        this.tailType = 2;
+        this.tailType = 1;
         this.color = "#fff";
     }
 
