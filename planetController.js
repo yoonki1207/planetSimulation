@@ -20,6 +20,11 @@ export class PlanetController {
         this.planets.push(planet);
     }
 
+    pop() {
+        delete this.planets[this.planets.length-1];
+        this.planets.length -= 1;
+    }
+
     resize(beforeWidth, beforeHeight, stageWidth, stageHeight) {
         for(let i = 0; this.planets[i] != undefined; i++) {
             this.planets[i].resize(beforeWidth, beforeHeight, stageWidth, stageHeight);

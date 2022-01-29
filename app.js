@@ -77,6 +77,8 @@ class App{
             let x = e.offsetX;
             let y = e.offsetY;
             this.offsetPos= {x: x, y: y};
+            let color = randomColor();
+            this.planetController.addPlanet({x: x, y: y}, {vx: 0, vy: 0}, 9, color, true);
         }
     }
 
@@ -88,7 +90,9 @@ class App{
         let downY = this.offsetPos.y;
         this.offsetPos.x -= x;
         this.offsetPos.y -= y;
-        this.planetController.addPlanet({x: downX, y: downY}, {vx: this.offsetPos.x*c, vy: this.offsetPos.y*c}, 9, randomColor(), false);
+        let color = this.planetController.planets[this.planetController.planets.length-1].color;
+        this.planetController.pop();
+        this.planetController.addPlanet({x: downX, y: downY}, {vx: this.offsetPos.x*c, vy: this.offsetPos.y*c}, 9, color, false);
         console.log(downX, downY, this.offsetPos.x*c, this.offsetPos.y*c);
     }
 

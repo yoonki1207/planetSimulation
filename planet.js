@@ -1,6 +1,7 @@
 import { TailController } from "./tailController.js";
 
 const DELTA_T = 1/60;
+const BOUNCE = 0.6;
 
 export class Planet {
     constructor() {
@@ -8,6 +9,8 @@ export class Planet {
         this.isStatic = false;
         this.color = "#000";
         this.radius = 20;
+        this.r = 0;
+        this.radiusV = 0;
         this.state = {
             x: 0,
             y: 0,
@@ -30,7 +33,7 @@ export class Planet {
         ctx.fillStyle = this.color;
         ctx.arc(this.state.x,
             this.state.y,
-            this.radius,
+            this.r,
             0,
             Math.PI*2,
             false);
@@ -42,15 +45,20 @@ export class Planet {
     update() {
         this.state.vx += this.state.ax*DELTA_T;
         this.state.vy += this.state.ay*DELTA_T;
+
         if(this.isStatic) {
             this.state.vx = 0;
             this.state.vy = 0;
-            return;
         }
 
         this.state.x += this.state.vx;
         this.state.y += this.state.vy;
         this.tailController.update(this.state.x, this.state.y, this.color);
+
+        const accel = (this.radius - this.r) / 2;
+        this.radiusV += accel;
+        this.radiusV *= BOUNCE;
+        this.r += this.radiusV;
     }
 
     setTailStyle(tailStyle) {
