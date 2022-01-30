@@ -1,3 +1,4 @@
+import { DEFAULT_MASS } from "./resources.js";
 import { TailController } from "./tailController.js";
 
 const DELTA_T = 1/60;
@@ -5,7 +6,7 @@ const BOUNCE = 0.6;
 
 export class Planet {
     constructor() {
-        this.mass = 100;
+        this.mass = DEFAULT_MASS;
         this.isStatic = false;
         this.color = "#000";
         this.radius = 20;

@@ -1,7 +1,6 @@
 import {Planet} from './planet.js';
 import {distance} from './utils.js';
-
-const G_CONSTANT = 100;
+import { G_CONSTANT } from './resources.js';
 
 export class PlanetController {
     constructor() {
@@ -71,5 +70,9 @@ export class PlanetController {
     nextTailStyle() {
         this.tailStyle++;
         this.planets.map((element)=>element.setTailStyle(this.tailStyle));
+    }
+
+    toggleRadius() {
+        
     }
 }

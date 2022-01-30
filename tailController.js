@@ -1,12 +1,13 @@
 import {Queue} from './utils.js';
 import { Dot } from './dot.js';
+import { FREQUENCY } from './resources.js';
 
 const TAIL_TYPE = ['none', 'dot', 'line'];
 
 export class TailController {
     constructor() {
         this.queue = new Queue();
-        this.frequency = 1;
+        this.frequency = FREQUENCY;
         this.tick = 1;
         this.tailType = 1;
         this.color = "#fff";
