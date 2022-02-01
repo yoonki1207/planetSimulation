@@ -30,7 +30,7 @@ class App{
             setPos({x: this.stageWidth/2, y: this.stageHeight/2}).
             setVelocity({vx: 0, vy: 0}).
             setRadius(15).
-            setColor("#E72").
+            setColor("rgba(238, 119, 34, 1)").
             setIsstatic(true)
         );
         this.planetController.push(
@@ -39,7 +39,7 @@ class App{
             setPos({x: this.stageWidth/2+100, y:this.stageHeight/2+50}).
             setVelocity({vx: 0, vy: -10}).
             setRadius(9).
-            setColor("#23E").
+            setColor("rgba(34, 51, 238, 1)").
             setIsstatic(false)
         );
         this.planetController.push(
@@ -48,7 +48,7 @@ class App{
             setPos({x: this.stageWidth/2-100, y:this.stageHeight/2+100}).
             setVelocity({vx: 5, vy: 10.1}).
             setRadius(9).
-            setColor("#3ee").
+            setColor("rgba(51, 238, 238, 1)").
             setIsstatic(false)
         );
 
@@ -87,9 +87,9 @@ class App{
             let x = e.offsetX;
             let y = e.offsetY;
 
-            this.expectedRoute = new ExpectedRoute(x, y, this.planetController.planets);
             this.startPos= {x: x, y: y};
             let color = randomColor();
+            this.expectedRoute = new ExpectedRoute(x, y, this.planetController.planets, color);
             this.planetController.addPlanet({x: x, y: y}, {vx: 0, vy: 0}, 9, color, true);
             this.planetController.planets[this.planetController.planets.length-1].setMass(0)
         }

@@ -1,4 +1,4 @@
-import {Queue} from './utils.js';
+import {changeOpacity, Queue} from './utils.js';
 import { Dot } from './dot.js';
 import { FREQUENCY } from './resources.js';
 
@@ -28,19 +28,19 @@ export class TailController {
             this.queue._arr.map((element)=>{
                 element.update();
                 ctx.beginPath();
-                ctx.fillStyle = element.color;
+                ctx.fillStyle = changeOpacity(element.color, element.radius);
                 ctx.arc(element.x, element.y, element.radius, 0, Math.PI*2, false);
                 ctx.fill();
             }, this);
         } else if (this.tailType % TAIL_TYPE.length == 2) {
-            ctx.beginPath();
-            ctx.strokeStyle = this.color;
-            ctx.moveTo(this.queue._arr[0]?.x, this.queue._arr[0]?.y);
             for(let i = 0; i < this.queue._arr.length; i++) {
+                ctx.beginPath();
+                ctx.moveTo(this.queue._arr[i-1]?.x, this.queue._arr[i-1]?.y);
+                ctx.strokeStyle = changeOpacity(this.color, (i)/this.queue._arr.length);
                 this.queue._arr[i].update();
                 ctx.lineTo(this.queue._arr[i].x, this.queue._arr[i].y);
+                ctx.stroke();
             }
-            ctx.stroke();
         }
     }
 }

@@ -21,3 +21,7 @@ export class Queue {
         return this._arr.shift();
     }
 }
+
+export function changeOpacity(color, opacity) {
+    return color.substring(0, color.lastIndexOf(',')) + ',' + opacity + ')';
+}

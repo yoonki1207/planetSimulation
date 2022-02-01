@@ -1,13 +1,14 @@
 import { Dot } from "./dot.js";
 import { DEFAULT_MASS, FREQUENCY, G_CONSTANT, MOUSE_POWER } from "./resources.js";
-import { distance } from "./utils.js";
+import { changeOpacity, distance } from "./utils.js";
 
 export class ExpectedRoute {
-    constructor(x, y, planets) {
+    constructor(x, y, planets, color) {
         this.dots = [];
-        this.nDots = 15;
+        this.nDots = 60;
         this.freqency = FREQUENCY;
         this.planets = planets;
+        this.color = color;
         this.x = x;
         this.y = y;
         this.vx = 0;
@@ -17,8 +18,10 @@ export class ExpectedRoute {
     update() {
         let x = this.x;
         let y = this.y;
+        let vx = this.vx;
+        let vy = this.vy;
         for(let i = 0; i < this.nDots; i++) {
-            let vecSum = {x: 0, y: 0};
+            let vecSum = {x: 0, y: 0}; // accelerator
             for(let j = 0; j < this.planets.length; j++) {
                 let vector = {
                     x: (this.planets[j].state.x - x),
@@ -32,11 +35,13 @@ export class ExpectedRoute {
                 vecSum.x += vector.x;
                 vecSum.y += vector.y;
             }
-            let powerX = vecSum.x / 60;
-            let powerY = vecSum.y / 60;
-            x += powerX + this.vx;
-            y += powerY + this.vy;
-            this.dots[i] = new Dot(x, y, "000", 1);
+            vx += vecSum.x / 60;
+            vy += vecSum.y / 60;
+            x += vx;
+            y += vy;
+            this.dots[i] = new Dot(x, y, this.color, 1);
+            this.color = changeOpacity(this.color, ((this.nDots - i)/this.nDots).toFixed(2));
+            console.log(this.color, this.color.lastIndexOf(','), this.color.lastIndexOf(')'));
         }
     }
 
