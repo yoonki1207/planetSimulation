@@ -22,6 +22,7 @@ class App{
         this.resize();
 
         this.startPos = {x: 0, y: 0};
+        this.isDark = false;
 
         this.planetController = new PlanetController();
         this.planetController.push(
@@ -122,6 +123,9 @@ class App{
             this.planetController.nextTailStyle();
         } else if (e.key == 'o' || e.key == 'O') {
             this.planetController.toggleRadius();
+        } else if(e.key == ' ') {
+            document.body.style.backgroundColor = !this.isDark ? '#334' : '#EEE';
+            this.isDark = !this.isDark;
         }
     }
 }
