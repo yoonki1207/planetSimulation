@@ -41,7 +41,6 @@ export class ExpectedRoute {
             y += vy;
             this.dots[i] = new Dot(x, y, this.color, 1);
             this.color = changeOpacity(this.color, ((this.nDots - i)/this.nDots).toFixed(2));
-            console.log(this.color, this.color.lastIndexOf(','), this.color.lastIndexOf(')'));
         }
     }
 

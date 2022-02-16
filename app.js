@@ -29,7 +29,7 @@ class App{
             setMass(10000).
             setPos({x: this.stageWidth/2, y: this.stageHeight/2}).
             setVelocity({vx: 0, vy: 0}).
-            setRadius(15).
+            setRadius(20).
             setColor("rgba(238, 119, 34, 1)").
             setIsstatic(true)
         );
@@ -78,20 +78,22 @@ class App{
     }
 
     onMouseDown(e) {
-        if(e.type === "mouseup") {
-            this.onMouseUp(e);
-            this.isDragging = false;
-        } else if(e.type === "mousedown"){
-            this.isDragging = true;
-            
-            let x = e.offsetX;
-            let y = e.offsetY;
-
-            this.startPos= {x: x, y: y};
-            let color = randomColor();
-            this.expectedRoute = new ExpectedRoute(x, y, this.planetController.planets, color);
-            this.planetController.addPlanet({x: x, y: y}, {vx: 0, vy: 0}, 9, color, true);
-            this.planetController.planets[this.planetController.planets.length-1].setMass(0)
+        if(e.button === 0) {
+            if(e.type === "mouseup") {
+                this.onMouseUp(e);
+                this.isDragging = false;
+            } else if(e.type === "mousedown"){
+                this.isDragging = true;
+                
+                let x = e.offsetX;
+                let y = e.offsetY;
+    
+                this.startPos= {x: x, y: y};
+                let color = randomColor();
+                this.expectedRoute = new ExpectedRoute(x, y, this.planetController.planets, color);
+                this.planetController.addPlanet({x: x, y: y}, {vx: 0, vy: 0}, 9, color, true);
+                this.planetController.planets[this.planetController.planets.length-1].setMass(0)
+            }
         }
     }
 

@@ -10,6 +10,6 @@ export class Dot {
 
     update() {
         this.radius *= 0.98;
-        if(this.radius < 0.1) this.isDead = true;
+        if(this.radius < 0.5) this.isDead = true;
     }
 }
