@@ -19,6 +19,12 @@ export class PlanetController {
         this.planets.push(planet);
     }
 
+    clear() {
+        while(this.planets.length !== 1) {
+            this.planets.pop();
+        }
+    }
+
     pop() {
         delete this.planets[this.planets.length-1];
         this.planets.length -= 1;

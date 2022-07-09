@@ -119,13 +119,15 @@ class App{
     }
 
     keyDown(e) {
-        if(e.key == 'l' || e.key == 'L') {
+        if(e.key === 'l' || e.key === 'L') {
             this.planetController.nextTailStyle();
-        } else if (e.key == 'o' || e.key == 'O') {
+        } else if (e.key === 'o' || e.key === 'O') {
             this.planetController.toggleRadius();
-        } else if(e.key == ' ') {
+        } else if(e.key === ' ') {
             document.body.style.backgroundColor = !this.isDark ? '#334' : '#EEE';
             this.isDark = !this.isDark;
+        } else if(e.key === 'Escape') {
+            this.planetController.clear();
         }
     }
 }
